@@ -175,7 +175,7 @@ After cloning this repo, `cd` into it and run these commands.
    
    ![alt tag](https://i.ibb.co/56FthSf/pulumi-K8s-snyk-setup-5.png)
 
-   The Snyk Controller installed in the `snyk-monitor` namespace
+   The Snyk Controller installed in the `snyk-monitor` namespace plus the config map and secret now managed by Pulumi 
 
    ```bash
    ❯ kubectl get all -n snyk-monitor
@@ -187,6 +187,14 @@ After cloning this repo, `cd` into it and run these commands.
 
     NAME                                    DESIRED   CURRENT   READY   AGE
     replicaset.apps/snyk-monitor-db67744d   1         1         1       8m53s
+
+    ❯ kubectl get secret -n snyk-monitor -l app.kubernetes.io/managed-by=pulumi
+    NAME           TYPE     DATA   AGE
+    snyk-monitor   Opaque   2      42m
+
+    ❯ kubectl get configmap -n snyk-monitor -l app.kubernetes.io/managed-by=pulumi
+    NAME                           DATA   AGE
+    snyk-monitor-custom-policies   1      42m
    ```
 
    REGO policy file used by the Snyk Controller which is currently hardcoded to only import workloads from the `apples` namespace. This can be changed in `__main__.py` and used as an external file rather then hard coded in the python code
