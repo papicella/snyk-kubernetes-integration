@@ -1,4 +1,4 @@
-[![Deploy](https://get.pulumi.com/new/button.svg)](https://app.pulumi.com/new?template=https://github.com/pulumi/examples/blob/master/gcp-py-gke/README.md)
+[![Deploy](https://get.pulumi.com/new/button.svg)](https://app.pulumi.com/new?template=https://github.com/papicella/snyk-kubernetes-integration/blob/main/README.md)
 
 # Google Kubernetes Engine (GKE) with a Snyk Kubernetes controller installed
 
