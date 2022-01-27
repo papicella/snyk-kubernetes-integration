@@ -1,6 +1,6 @@
 [![Deploy](https://get.pulumi.com/new/button.svg)](https://app.pulumi.com/new?template=https://github.com/papicella/snyk-kubernetes-integration/blob/main/README.md)
 
-# Google Kubernetes Engine (GKE) with a Snyk Kubernetes controller installed
+# Google Kubernetes Engine (GKE) with a Snyk Kubernetes controller installed/configured for Snyk App
 
 This example provisions a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/) cluster, the Snyk controller for the Kubernetes Integration, confiugures auto-import of workloads from the `apples` namespace and then deploys a sample workload as a Deployment into the cluster, to test that the Snyk Kubernetes integration is working using infrastructure-as-code. This
 demonstrates that you can manage both the Kubernetes objects themselves, in addition to underlying cloud infrastructure,
@@ -175,8 +175,6 @@ After cloning this repo, `cd` into it and run these commands.
    
    ![alt tag](https://i.ibb.co/56FthSf/pulumi-K8s-snyk-setup-5.png)
 
-   ![alt tag](https://i.ibb.co/SPpzp5Q/pulumi-K8s-snyk-setup-1.png)
-
    The Snyk Controller installed in the `snyk-monitor` namespace
 
    ```bash
@@ -191,7 +189,7 @@ After cloning this repo, `cd` into it and run these commands.
     replicaset.apps/snyk-monitor-db67744d   1         1         1       8m53s
    ```
 
-   REGO policy file used by the Snyk Controller which is currently hardcoded to only import workloads from the `apples` namespace. This can be changed in `__main__.py` and used as an external file rather then hard coded in the pythin code
+   REGO policy file used by the Snyk Controller which is currently hardcoded to only import workloads from the `apples` namespace. This can be changed in `__main__.py` and used as an external file rather then hard coded in the python code
 
    ```python
    snyk_monitor_custom_policies_str = """package snyk
