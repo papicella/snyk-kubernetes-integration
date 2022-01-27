@@ -1,0 +1,6 @@
+name: gcp-K8s-integration-demo
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Snyk K8s integration demo using Pulumi
