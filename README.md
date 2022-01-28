@@ -234,3 +234,68 @@ After cloning this repo, `cd` into it and run these commands.
     $ pulumi stack rm
     ```
 
+    ```bash
+    ❯ pulumi destroy
+    Previewing destroy (dev)
+
+    View Live: https://app.pulumi.com/papicella/gcp-K8s-integration-demo/dev/previews/44fb2e8b-641c-4f55-9b4b-4ffa78f340ee
+
+        Type                                                              Name                          Plan
+    -   pulumi:pulumi:Stack                                               gcp-K8s-integration-demo-dev  delete
+    -   ├─ kubernetes:core/v1:Namespace                                   snyk-monitor                  delete
+    -   ├─ kubernetes:core/v1:ConfigMap                                   snyk-monitor-custom-policies  delete
+    -   ├─ kubernetes:core/v1:Secret                                      snyk-monitor                  delete
+    -   ├─ kubernetes:core/v1:Namespace                                   apples                        delete
+    -   ├─ kubernetes:core/v1:Service                                     springboot-employee-api       delete
+    -   ├─ kubernetes:apps/v1:Deployment                                  springboot-employee-api       delete
+    -   ├─ pulumi:providers:kubernetes                                    gke_k8s                       delete
+    -   ├─ kubernetes:helm.sh/v3:Chart                                    snyk-monitor                  delete
+    -   │  ├─ kubernetes:core/v1:ServiceAccount                           snyk-monitor/snyk-monitor     delete
+    -   │  ├─ kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding  snyk-monitor                  delete
+    -   │  ├─ kubernetes:networking.k8s.io/v1:NetworkPolicy               snyk-monitor/snyk-monitor     delete
+    -   │  ├─ kubernetes:rbac.authorization.k8s.io/v1:ClusterRole         snyk-monitor                  delete
+    -   │  └─ kubernetes:apps/v1:Deployment                               snyk-monitor/snyk-monitor     delete
+    -   └─ gcp:container:Cluster                                          pulumi-gke-cluster            delete
+
+    Outputs:
+    - kubeconfig: "[secret]"
+
+    Resources:
+        - 15 to delete
+
+    Do you want to perform this destroy? yes
+    Destroying (dev)
+
+    View Live: https://app.pulumi.com/papicella/gcp-K8s-integration-demo/dev/updates/2
+
+        Type                                                              Name                          Status
+    -   pulumi:pulumi:Stack                                               gcp-K8s-integration-demo-dev  deleted
+    -   ├─ kubernetes:core/v1:Secret                                      snyk-monitor                  deleted
+    -   ├─ kubernetes:core/v1:ConfigMap                                   snyk-monitor-custom-policies  deleted
+    -   ├─ kubernetes:core/v1:Namespace                                   apples                        deleted
+    -   ├─ kubernetes:core/v1:Namespace                                   snyk-monitor                  deleted
+    -   ├─ kubernetes:core/v1:Service                                     springboot-employee-api       deleted
+    -   ├─ kubernetes:apps/v1:Deployment                                  springboot-employee-api       deleted
+    -   ├─ pulumi:providers:kubernetes                                    gke_k8s                       deleted
+    -   ├─ kubernetes:helm.sh/v3:Chart                                    snyk-monitor                  deleted
+    -   │  ├─ kubernetes:core/v1:ServiceAccount                           snyk-monitor/snyk-monitor     deleted
+    -   │  ├─ kubernetes:networking.k8s.io/v1:NetworkPolicy               snyk-monitor/snyk-monitor     deleted
+    -   │  ├─ kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding  snyk-monitor                  deleted
+    -   │  ├─ kubernetes:rbac.authorization.k8s.io/v1:ClusterRole         snyk-monitor                  deleted
+    -   │  └─ kubernetes:apps/v1:Deployment                               snyk-monitor/snyk-monitor     deleted
+    -   └─ gcp:container:Cluster                                          pulumi-gke-cluster            deleted
+
+    Outputs:
+    - kubeconfig: "[secret]"
+
+    Resources:
+        - 15 deleted
+
+    Duration: 3m40s
+
+    The resources in the stack have been deleted, but the history and configuration associated with the stack are still maintained.
+    If you want to remove the stack completely, run 'pulumi stack rm dev'.
+    ```
+
+<hr />
+Pas Apicella [pas at snyk.io] is an Solution Engineer APJ at Snyk
