@@ -1,6 +1,6 @@
 [![Deploy](https://get.pulumi.com/new/button.svg)](https://app.pulumi.com/new?template=https://github.com/papicella/snyk-kubernetes-integration/blob/main/README.md)
 
-# Google Kubernetes Engine (GKE) with a Snyk Kubernetes controller installed/configured for Snyk App
+# Installing the Snyk Controller into a Google Kubernetes Engine (GKE) cluster with Pulumi
 
 This example provisions a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/) cluster, the Snyk controller for the Kubernetes Integration, confiugures auto-import of workloads from the `apples` namespace and then deploys a sample workload as a Deployment into the cluster, to test that the Snyk Kubernetes integration is working using infrastructure-as-code. This
 demonstrates that you can manage both the Kubernetes objects themselves, in addition to underlying cloud infrastructure,
