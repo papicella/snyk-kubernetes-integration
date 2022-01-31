@@ -50,7 +50,11 @@ After cloning this repo, `cd` into it and run these commands.
     $ pulumi stack init dev
     ```
 
-3. Set the required configuration variables for this program. You can leave the defaults but please ensure you setup a GKE cluster password as that is manfatory here:
+3. In many cases, different stacks for a single project will need differing values. For instance, you may want to use a different size for your GCP Compute Instance, or a different number of servers for your Kubernetes cluster between your development and production stacks.
+
+    The key-value pairs for any given stack are stored in your project’s stack settings file, which is automatically named Pulumi.<stack-name>.yaml. You can typically ignore this file, although you may want to check it in and version it with your project source code.
+
+    Add the following configuration variables to our stack as shown below:
 
     ```bash
     $ pulumi config set gcp:project [your-gcp-project-here] # Eg: snyk-cx-se-demo
@@ -210,6 +214,28 @@ After cloning this repo, `cd` into it and run these commands.
     }""" % (SNYK_ORG_ID)
    ```
 
+   Python code to install the Snyk Controller:
+
+   ```python
+    # Deploy the snyk controller using it's helm chart
+    snyk_monitor_chart = Chart(
+        "snyk-monitor",
+        ChartOpts(
+            chart="snyk-monitor",
+            version="1.79.0",
+            namespace="snyk-monitor",
+            fetch_opts=FetchOpts(
+                repo="https://snyk.github.io/kubernetes-monitor",
+            ),
+            values={
+            "clusterName": "K8s-integration-demo-cluster",
+            "policyOrgs": "{%s}" % (SNYK_ORG_ID),
+            "workloadPoliciesMap": "snyk-monitor-custom-policies"
+            }
+        ),
+        opts=ResourceOptions(provider=k8s_provider)
+    )
+   ```
 
 5. From here, you may take this config and use it either in your `~/.kube/config` file, or just by saving it
    locally and plugging it into the `KUBECONFIG` envvar. All of your usual `gcloud` commands will work too, of course.
