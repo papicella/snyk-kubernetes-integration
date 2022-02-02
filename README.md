@@ -17,6 +17,13 @@ We will be deploying to Google Cloud Platform (GCP), so you will need an account
 This example assumes that you have GCP's `gcloud` CLI on your path. This is installed as part of the
 [GCP SDK](https://cloud.google.com/sdk/).
 
+It’s important you use python 3 for this demo. To verify python 3 is in your path use a command as follows. Python 2 will not work for this demo. You may need to create an alias if you have python 2 installed along with python 3
+
+```bash
+❯ python --version
+Python 3.9.9
+```
+
 ## Snyk Pre Steps
 
 Note: These must be done before running this example. We will need an existing Snyk ORG which does not have Kubernetes integration configured.
@@ -324,4 +331,5 @@ After cloning this repo, `cd` into it and run these commands.
     ```
 
 <hr />
-Pas Apicella [pas at snyk.io] is an Solution Engineer APJ at Snyk
+
+Pas Apicella [pas at snyk.io] is a Principal Solution Engineer APJ at Snyk
