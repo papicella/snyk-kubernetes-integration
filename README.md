@@ -208,6 +208,8 @@ After cloning this repo, `cd` into it and run these commands.
     snyk-monitor-custom-policies   1      42m
    ```
 
+   Let’s take a close look at the Python file __main__.py  and understand how the Snyk Kubernetes Integration was installed and configured for us. 
+
    REGO policy file used by the Snyk Controller which is currently hardcoded to only import workloads from the `apples` namespace. This can be changed in `__main__.py` and used as an external file rather then hard coded in the python code
 
    ```python
@@ -221,7 +223,7 @@ After cloning this repo, `cd` into it and run these commands.
     }""" % (SNYK_ORG_ID)
    ```
 
-   Python code to install the Snyk Controller:
+   Here is the Python code to install the Snyk Controller using it’s helm Chart. You will notice that we have specified the REPO to fetch the helm chart, provided the Snyk ORG ID as well as the custom policy file above. All of these are required to install the Snyk Controller into the GKE cluster and integrate it with Snyk.
 
    ```python
     # Deploy the snyk controller using it's helm chart
@@ -242,6 +244,40 @@ After cloning this repo, `cd` into it and run these commands.
         ),
         opts=ResourceOptions(provider=k8s_provider)
     )
+   ```
+
+   The python code also deployed a Spring Boot sample application into our apples namespace which is what was auto imported by the Snyk Controller into Snyk App. The Python code to achieve that Deployment is as follows:
+
+   ```python
+    """springboot employee api container, replicated 1 time."""
+    app_name = "springboot-employee-api"
+    app_labels = { "app": app_name }
+
+    springboot_employee_api = k8s.apps.v1.Deployment(
+                app_name,
+                metadata={
+                "namespace": "apples",
+                },
+                spec=k8s.apps.v1.DeploymentSpecArgs(
+                    replicas=1,
+                    selector=k8s.meta.v1.LabelSelectorArgs(match_labels=app_labels),
+                    template=k8s.core.v1.PodTemplateSpecArgs(
+                        metadata=k8s.meta.v1.ObjectMetaArgs(labels=app_labels),
+                        spec=k8s.core.v1.PodSpecArgs(
+                            containers=[
+                                k8s.core.v1.ContainerArgs(
+                                    name=app_name,
+                                    image="pasapples/springbootemployee:cnb",
+                                    ports=[k8s.core.v1.ContainerPortArgs(
+                                    container_port=8080
+                                    )]
+                                )
+                            ]
+                        ),
+                    ),
+                ),
+                opts=ResourceOptions(provider=k8s_provider)
+            )
    ```
 
 5. From here, you may take this config and use it either in your `~/.kube/config` file, or just by saving it
